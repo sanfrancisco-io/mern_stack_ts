@@ -1,11 +1,11 @@
 import { IDeckItemProps } from '../models/Deck';
-import { api, fetchDELETEOptions } from '../utils/apiUtils';
+import { API_URL, fetchDELETEOptions } from '../utils/apiUtils';
 import { Link } from 'react-router-dom';
 
 const DeckItem = ({ item, setDecks }: IDeckItemProps) => {
     const handleDeleteItem = async (id: string) => {
         try {
-            await fetch(`${api}/decks/${id}`, {
+            await fetch(`${API_URL}/decks/${id}`, {
                 ...fetchDELETEOptions,
             });
 
