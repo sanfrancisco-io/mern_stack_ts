@@ -5,18 +5,19 @@ import { IDecks } from './models/Deck';
 import { API_URL } from './utils/apiUtils';
 
 import './styles/App.css';
+import { useFetch } from './hooks/useFech';
 
 function App() {
     const [decks, setDecks] = useState<IDecks[]>([]);
 
     useEffect(() => {
-        const fetchData = async (): Promise<void> => {
-            const decks: Response = await fetch(`${API_URL}/decks`);
-            const json: IDecks[] = await decks.json();
-            setDecks(json);
-        };
-
-        fetchData();
+        useFetch()
+            .then((res: IDecks[]) => {
+                setDecks(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, []);
 
     return (
