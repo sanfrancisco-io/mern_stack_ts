@@ -1,38 +1,36 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import Deck from './models/Deck';
 
+import { getDeck, getDecks } from './controllers/getDeck';
+import { createDeck } from './controllers/createDeck';
+import { deleteDeck } from './controllers/deleteDeck';
+import { updateDeck } from './controllers/updateDeck';
+
+//init app and env file
 dotenv.config();
 const app = express();
-const PORT = 5001;
 
-app.use(express.json());
+//middlewares
 app.use(cors());
+app.use(express.json());
 
-app.get('/decks', async (req: Request, res: Response) => {
-    try {
-        const allDecks = await Deck.find({});
-        res.status(200).json(allDecks);
-    } catch (err) {
-        console.log(err);
-    }
-});
+//routes
+app.get('/decks', getDecks);
+app.get('/decks/:id', getDeck);
+app.post('/decks', createDeck);
+app.delete('/decks/:id', deleteDeck);
+app.patch('/decks/:id', updateDeck);
 
-app.post('/decks', async (req: Request, res: Response) => {
-    const deck = new Deck({
-        title: req.body.title,
-    });
-    const createdDeck = await deck.save();
-    res.json(createdDeck);
-});
-
+//connect to mongo and listen some port
 mongoose
     .connect(process.env.MONGO_URL!)
     .then(() => {
-        app.listen(PORT);
-        console.log(`connectiong to mongodb and listening on ${PORT}`);
+        app.listen(process.env.PORT);
+        console.log(
+            `connectiong to mongodb and listening on ${process.env.PORT}`
+        );
     })
     .catch((err) => {
         console.log(err);
