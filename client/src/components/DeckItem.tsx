@@ -1,11 +1,24 @@
-import React from 'react';
-import { IDeckItemProps, IDecks } from '../models/Deck';
+import { IDeckItemProps } from '../models/Deck';
+import { api, fetchDELETEOptions } from '../utils/apiUtils';
+import { Link } from 'react-router-dom';
 
-const DeckItem = ({ item, handleDeleteItem }: IDeckItemProps) => {
+const DeckItem = ({ item, setDecks }: IDeckItemProps) => {
+    const handleDeleteItem = async (id: string) => {
+        try {
+            await fetch(`${api}/decks/${id}`, {
+                ...fetchDELETEOptions,
+            });
+
+            setDecks((prev) => prev.filter((item) => item._id !== id));
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
-        <li key={item._id}>
+        <li>
             <div>
-                <button>Edit</button>
+                <Link to={`deck/${item._id}`}>Edit</Link>
                 <button onClick={() => handleDeleteItem(item._id)}>X</button>
             </div>
             <div>

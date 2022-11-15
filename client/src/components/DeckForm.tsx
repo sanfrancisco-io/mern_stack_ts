@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IDeckFormProps } from '../models/Deck';
+import { api, fetchPOSTOptions } from '../utils/apiUtils';
 
-const DeckForm = ({
-    deckText,
-    handleSubmit,
-    setDeckText,
-    setDeckCount,
-    deckCount,
-}: IDeckFormProps) => {
+const DeckForm = ({ setDecks }: IDeckFormProps) => {
+    const [deckText, setDeckText] = useState<string>('');
+    const [deckCount, setDeckCount] = useState<number | string>(0);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        try {
+            e.preventDefault();
+            const response = await fetch(`${api}/decks`, {
+                ...fetchPOSTOptions,
+                body: JSON.stringify({
+                    title: deckText,
+                    count: deckCount,
+                }),
+            });
+            const deck = await response.json();
+            setDecks((prev) => [...prev, deck]);
+            setDeckText('');
+            setDeckCount(0);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <form onSubmit={(e) => handleSubmit(e)}>
             <label htmlFor='deck-title'>Deck title</label>
