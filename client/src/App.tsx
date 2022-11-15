@@ -1,39 +1,15 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import DeckForm from './components/DeckForm';
+import DeckItem from './components/DeckItem';
+import { IDecks } from './models/Deck';
+import { api, fetchDELETEOptions, fetchPOSTOptions } from './utils/apiUtils';
+
 import './App.css';
-import useDebaunce from './hooks/useDebaunce';
-
-const fetchPOSTOptions = {
-    method: 'POST',
-    headers: {
-        'Content-type': 'application/json',
-    },
-};
-
-const fetchDELETEOptions = {
-    method: 'DELETE',
-    headers: {
-        'Content-type': 'application/json',
-    },
-};
-
-const api = 'http://localhost:5001';
-
-interface IDecks {
-    createdAt: string;
-    title: string;
-    updatedAt: string;
-    count: number;
-    __v: number;
-    _id: string;
-}
 
 function App() {
     const [deckText, setDeckText] = useState<string>('');
     const [deckCount, setDeckCount] = useState<number | string>(0);
     const [decks, setDecks] = useState<IDecks[]>([]);
-
-    // const { debauncedValue } = useDebaunce(deckText, 300);
-    // console.log(debauncedValue);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
@@ -81,44 +57,20 @@ function App() {
             <ul className='decks'>
                 {decks.map((item: IDecks) => {
                     return (
-                        <li key={item._id}>
-                            <div>
-                                <button>Edit</button>
-                                <button
-                                    onClick={() => handleDeleteItem(item._id)}
-                                >
-                                    X
-                                </button>
-                            </div>
-                            <div>
-                                <span style={{ marginRight: '10px' }}>
-                                    {item.title}
-                                </span>
-                                <span>{item.count}</span>
-                            </div>
-                        </li>
+                        <DeckItem
+                            item={item}
+                            handleDeleteItem={handleDeleteItem}
+                        />
                     );
                 })}
             </ul>
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <label htmlFor='deck-title'>Deck title</label>
-                <input
-                    id='deck-title'
-                    value={deckText}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setDeckText(e.target.value)
-                    }
-                />
-                <label htmlFor='deck-count'>Deck count</label>
-                <input
-                    id='deck-count'
-                    value={deckCount}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setDeckCount(e.target.value)
-                    }
-                />
-                <button>Create deck</button>
-            </form>
+            <DeckForm
+                deckText={deckText}
+                handleSubmit={handleSubmit}
+                setDeckCount={setDeckCount}
+                setDeckText={setDeckText}
+                deckCount={deckCount}
+            />
         </div>
     );
 }
