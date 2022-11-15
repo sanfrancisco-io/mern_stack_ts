@@ -19,9 +19,7 @@ app.post('/decks', async (req: Request, res: Response) => {
 });
 
 mongoose
-    .connect(
-        'mongodb+srv://admin:admin@cardapp.ebmd4f9.mongodb.net/?retryWrites=true&w=majority'
-    )
+    .connect(process.env.MONGO_URL!)
     .then(() => {
         app.listen(PORT);
         console.log(`connectiong to mongodb and listening on ${PORT}`);
