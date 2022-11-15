@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IDeckFormProps } from '../models/Deck';
-import { api, fetchPOSTOptions } from '../utils/apiUtils';
+import { API_URL, fetchPOSTOptions } from '../utils/apiUtils';
 
 const DeckForm = ({ setDecks }: IDeckFormProps) => {
     const [deckText, setDeckText] = useState<string>('');
@@ -9,7 +9,7 @@ const DeckForm = ({ setDecks }: IDeckFormProps) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
-            const response = await fetch(`${api}/decks`, {
+            const response = await fetch(`${API_URL}/decks`, {
                 ...fetchPOSTOptions,
                 body: JSON.stringify({
                     title: deckText,
@@ -26,8 +26,8 @@ const DeckForm = ({ setDecks }: IDeckFormProps) => {
     };
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <label htmlFor='deck-title'>Deck title</label>
+        <form className='form' onSubmit={(e) => handleSubmit(e)}>
+            <label htmlFor='deck-title'>Deck title :</label>
             <input
                 id='deck-title'
                 value={deckText}
@@ -35,7 +35,7 @@ const DeckForm = ({ setDecks }: IDeckFormProps) => {
                     setDeckText(e.target.value)
                 }
             />
-            <label htmlFor='deck-count'>Deck count</label>
+            <label htmlFor='deck-count'>Deck count :</label>
             <input
                 id='deck-count'
                 value={deckCount}

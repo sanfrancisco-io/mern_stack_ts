@@ -42,12 +42,13 @@ button {
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
     font-size: 1em;
+    color: white;
     font-weight: 500;
     font-family: inherit;
-    background-color: #707070;
+    background-color: #858585;
     cursor: pointer;
     transition: border-color 0.25s;
-    margin-left: 10px;
+    width: 100%;
 }
 button:hover {
     border-color: #646cff;

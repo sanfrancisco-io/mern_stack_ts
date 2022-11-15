@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IDecks } from '../models/Deck';
-import { api } from '../utils/apiUtils';
+import { API_URL } from '../utils/apiUtils';
 import { useParams } from 'react-router-dom';
 
 const Deck: React.FC = () => {
@@ -11,7 +11,7 @@ const Deck: React.FC = () => {
 
     useEffect(() => {
         const fetchData = async (): Promise<void> => {
-            const response: Response = await fetch(`${api}/decks/${id}`);
+            const response: Response = await fetch(`${API_URL}/decks/${id}`);
             const json: IDecks = await response.json();
             setDeck(json);
         };

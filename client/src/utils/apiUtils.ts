@@ -1,4 +1,4 @@
-export const api: string = 'http://localhost:5001';
+export const API_URL: string = 'http://localhost:5001';
 
 export const fetchPOSTOptions = {
     method: 'POST',

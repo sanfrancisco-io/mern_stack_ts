@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css';
+import './styles/index.css';
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
-import Deck from './components/Deck';
+import Deck from './pages/Deck';
 
 const router = createBrowserRouter([
     { path: '/', element: <App /> },

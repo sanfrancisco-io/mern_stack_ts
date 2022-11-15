@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import DeckForm from './components/DeckForm';
 import DeckItem from './components/DeckItem';
 import { IDecks } from './models/Deck';
-import { api } from './utils/apiUtils';
+import { API_URL } from './utils/apiUtils';
 
-import './App.css';
+import './styles/App.css';
 
 function App() {
     const [decks, setDecks] = useState<IDecks[]>([]);
 
     useEffect(() => {
         const fetchData = async (): Promise<void> => {
-            const decks: Response = await fetch(`${api}/decks`);
+            const decks: Response = await fetch(`${API_URL}/decks`);
             const json: IDecks[] = await decks.json();
             setDecks(json);
         };
