@@ -1,12 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IDecks } from '../models/Deck';
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../hooks/useFech';
+import { API_URL, fetchUPDATEOptions } from '../utils/apiUtils';
+import DeckForm from '../components/DeckForm';
+import { FormType } from '../utils/FormType';
 
-const Deck: React.FC = () => {
-    const [deck, setDeck] = useState<IDecks | []>([]);
+const Deck = () => {
+    const [deck, setDeck] = useState<IDecks | null>(null);
+    const [deckText, setDeckText] = useState<string>('');
     let { id } = useParams();
-    console.log(deck);
+
+    const updateFormType = new FormType(
+        'Update',
+        deckText,
+        `${API_URL}/decks/${id}`,
+        fetchUPDATEOptions
+    );
 
     useEffect(() => {
         useFetch(id)
@@ -18,7 +28,17 @@ const Deck: React.FC = () => {
             });
     }, [id]);
 
-    return <div>Deck</div>;
+    return (
+        <div>
+            <div className='updatedtitle'>Title : {deck?.title}</div>
+            <DeckForm
+                setDeck={setDeck}
+                formType={updateFormType}
+                deckText={deckText}
+                setDeckText={setDeckText}
+            />
+        </div>
+    );
 };
 
 export default Deck;

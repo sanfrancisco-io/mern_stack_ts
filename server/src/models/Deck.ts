@@ -5,11 +5,13 @@ const Schema = mongoose.Schema;
 
 interface IDeck {
     title: string;
+    count: number;
 }
 
 const DeckSchema = new Schema<IDeck>(
     {
         title: String,
+        count: Number,
     },
     {
         timestamps: true,
