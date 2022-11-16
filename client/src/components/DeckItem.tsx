@@ -5,10 +5,7 @@ import { Link } from 'react-router-dom';
 const DeckItem = ({ item, setDecks }: IDeckItemProps) => {
     const handleDeleteItem = async (id: string) => {
         try {
-            await fetch(`${API_URL}/decks/${id}`, {
-                ...fetchDELETEOptions,
-            });
-
+            await fetch(`${API_URL}/decks/${id}`, fetchDELETEOptions);
             setDecks((prev) => prev.filter((item) => item._id !== id));
         } catch (err) {
             console.log(err);
@@ -17,13 +14,14 @@ const DeckItem = ({ item, setDecks }: IDeckItemProps) => {
 
     return (
         <li>
-            <div>
-                <Link to={`deck/${item._id}`}>Edit</Link>
+            <div className='links'>
+                <Link to={`deck/${item._id}`}>
+                    <button>Edit</button>
+                </Link>
                 <button onClick={() => handleDeleteItem(item._id)}>X</button>
             </div>
             <div>
-                <span style={{ marginRight: '10px' }}>{item.title}</span>
-                <span>{item.count}</span>
+                Title: <span style={{ marginRight: '10px' }}>{item.title}</span>
             </div>
         </li>
     );

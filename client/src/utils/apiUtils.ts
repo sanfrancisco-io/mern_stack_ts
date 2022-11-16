@@ -13,3 +13,10 @@ export const fetchDELETEOptions = {
         'Content-type': 'application/json',
     },
 };
+
+export const fetchUPDATEOptions = {
+    method: 'PATCH',
+    headers: {
+        'Content-type': 'application/json',
+    },
+};
