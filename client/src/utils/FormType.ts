@@ -1,11 +1,11 @@
 import { IfetchOption } from '../models/apiFetch';
 import { IDecks } from '../models/Deck';
 
-export class FormType {
-    type: string;
-    deckText: string;
-    API_URL: string;
-    fetchOptions: IfetchOption;
+export default class FormType {
+    type;
+    deckText;
+    API_URL;
+    fetchOptions;
 
     constructor(
         _title: string,

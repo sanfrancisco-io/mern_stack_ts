@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useFetch } from '../hooks/useFech';
 import { API_URL, fetchUPDATEOptions } from '../utils/apiUtils';
 import DeckForm from '../components/DeckForm';
-import { FormType } from '../utils/FormType';
+import FormType from '../utils/FormType';
 
 const Deck = () => {
     const [deck, setDeck] = useState<IDecks | null>(null);

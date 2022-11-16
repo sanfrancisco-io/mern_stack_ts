@@ -6,7 +6,7 @@ import { IDecks } from './models/Deck';
 import './styles/App.css';
 import { useFetch } from './hooks/useFech';
 import { API_URL, fetchPOSTOptions } from './utils/apiUtils';
-import { FormType } from './utils/FormType';
+import FormType from './utils/FormType';
 
 function App() {
     const [decks, setDecks] = useState<IDecks[]>([]);
