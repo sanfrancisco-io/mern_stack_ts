@@ -11,15 +11,9 @@ export const updateDeck = async (req: Request, res: Response) => {
     }
 
     try {
-        const updatedDeck = await Deck.findByIdAndUpdate(
-            id,
-            {
-                title,
-            },
-            {
-                new: true,
-            }
-        );
+        const updatedDeck = await Deck.findByIdAndUpdate(id, {
+            title,
+        });
         res.status(200).json(updatedDeck);
     } catch (err) {
         res.status(404).json({
