@@ -1,25 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IDeckFormProps } from '../models/Deck';
-import { API_URL, fetchPOSTOptions } from '../utils/apiUtils';
 
-const DeckForm = ({ setDecks }: IDeckFormProps) => {
-    const [deckText, setDeckText] = useState<string>('');
-    const [deckCount, setDeckCount] = useState<number | string>(0);
-
+const DeckForm = ({
+    setDeck,
+    setDecks,
+    deckText,
+    setDeckText,
+    formType,
+}: IDeckFormProps) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
-            const response = await fetch(`${API_URL}/decks`, {
-                ...fetchPOSTOptions,
-                body: JSON.stringify({
-                    title: deckText,
-                    count: deckCount,
-                }),
-            });
-            const deck = await response.json();
-            setDecks((prev) => [...prev, deck]);
+            const data = await formType.handleSubmit();
+            if (setDecks) setDecks((prev) => [...prev, data]);
+            if (setDeck) setDeck(data);
             setDeckText('');
-            setDeckCount(0);
         } catch (err) {
             console.log(err);
         }
@@ -27,7 +22,7 @@ const DeckForm = ({ setDecks }: IDeckFormProps) => {
 
     return (
         <form className='form' onSubmit={(e) => handleSubmit(e)}>
-            <label htmlFor='deck-title'>Deck title :</label>
+            <label htmlFor='deck-title'>{formType.type} title :</label>
             <input
                 id='deck-title'
                 value={deckText}
@@ -35,15 +30,7 @@ const DeckForm = ({ setDecks }: IDeckFormProps) => {
                     setDeckText(e.target.value)
                 }
             />
-            <label htmlFor='deck-count'>Deck count :</label>
-            <input
-                id='deck-count'
-                value={deckCount}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setDeckCount(e.target.value)
-                }
-            />
-            <button>Create deck</button>
+            <button>{formType.type}</button>
         </form>
     );
 };
