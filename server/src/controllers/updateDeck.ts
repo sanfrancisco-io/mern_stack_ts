@@ -14,7 +14,7 @@ export const updateDeck = async (req: Request, res: Response) => {
         const updatedDeck = await Deck.findByIdAndUpdate(id, {
             title,
         });
-        res.status(200).json({ Updated: true, updatedDeck });
+        res.status(200).json(updatedDeck);
     } catch (err) {
         res.status(404).json({
             message: 'Something went wrong',
