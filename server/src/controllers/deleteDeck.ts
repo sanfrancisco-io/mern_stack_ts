@@ -12,7 +12,7 @@ export const deleteDeck = async (req: Request, res: Response) => {
 
     try {
         const deletedDeck = await Deck.findByIdAndDelete(id);
-        res.status(200).json({ Deleted: true, deletedDeck });
+        res.status(200).json(deletedDeck);
     } catch (err) {
         res.status(404).json({
             message: 'Something went wrong',
