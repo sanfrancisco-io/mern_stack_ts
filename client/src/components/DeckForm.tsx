@@ -1,5 +1,5 @@
 import React from 'react';
-import { IDeckFormProps } from '../models/Deck';
+import { IDeckFormProps, IDecks } from '../models/Deck';
 
 const DeckForm = ({
     setDeck,
@@ -11,7 +11,7 @@ const DeckForm = ({
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
-            const data = await formType.handleSubmit();
+            const data: IDecks = await formType.handleSubmit();
             if (setDecks) setDecks((prev) => [...prev, data]);
             if (setDeck) setDeck(data);
             setDeckText('');

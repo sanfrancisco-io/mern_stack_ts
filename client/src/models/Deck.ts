@@ -14,7 +14,7 @@ export interface IClassFormType {
     deckText: string;
     API_URL: string;
     fetchOptions: IfetchOption;
-    handleSubmit: () => Promise<IDecks>;
+    handleSubmit: () => Promise<any>;
 }
 
 export interface IDeckItemProps {
